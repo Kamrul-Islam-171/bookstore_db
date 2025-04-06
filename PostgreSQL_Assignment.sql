@@ -1,5 +1,6 @@
 -- Active: 1743833652149@@127.0.0.1@5432@bookstore_db
 
+-- creating books table.
 CREATE TABLE books (
     id SERIAL PRIMARY KEY,
     title VARCHAR(250) NOT NULL,
@@ -11,6 +12,7 @@ CREATE TABLE books (
 
 DROP TABLE books;
 
+-- inserting data into books table.
 INSERT INTO books (title, author, price, stock, published_year) VALUES
 ('The Pragmatic Programmer', 'Andrew Hunt', 40.00, 10, 1999),
 ('Clean Code', 'Robert C. Martin', 35.00, 5, 2008),
@@ -20,6 +22,7 @@ INSERT INTO books (title, author, price, stock, published_year) VALUES
 
 SELECT * FROM books;
 
+-- creating customers table.
 CREATE TABLE customers (
     id SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
@@ -29,6 +32,7 @@ CREATE TABLE customers (
 
 drop TABLE customers;
 
+-- inserting data into customers table.
 INSERT INTO customers ("name", email, joined_date) VALUES
 ('Alice', 'alice@email.com', '2023-01-10'),
 ('Bob', 'bob@email.com', '2022-05-15'),
@@ -39,6 +43,7 @@ INSERT INTO customers ("name", email) VALUES
 
 SELECT * FROM customers;
 
+-- creating orders table.
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     customer_id INT REFERENCES customers(id) on DELETE CASCADE,
@@ -49,6 +54,7 @@ CREATE TABLE orders (
 
 DROP TABLE orders;
 
+-- inserting data into orders table.
 INSERT INTO orders (customer_id, book_id, quantity, order_date) VALUES
 (1, 2, 1, '2024-03-10'),
 (2, 1, 1, '2024-02-20'),
