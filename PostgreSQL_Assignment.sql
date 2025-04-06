@@ -9,6 +9,7 @@ CREATE TABLE books (
     published_year INT
 );
 
+DROP TABLE books;
 
 INSERT INTO books (title, author, price, stock, published_year) VALUES
 ('The Pragmatic Programmer', 'Andrew Hunt', 40.00, 10, 1999),
@@ -46,6 +47,8 @@ CREATE TABLE orders (
     order_date TIMESTAMP DEFAULT current_timestamp
 );
 
+DROP TABLE orders;
+
 INSERT INTO orders (customer_id, book_id, quantity, order_date) VALUES
 (1, 2, 1, '2024-03-10'),
 (2, 1, 1, '2024-02-20'),
@@ -55,7 +58,7 @@ INSERT INTO orders (customer_id, book_id, quantity, order_date) VALUES
 SELECT * FROM orders;
 
 --  Find books that are out of stock.
-SELECT * FROM books WHERE stock = 0;
+SELECT title FROM books WHERE stock = 0;
 
 -- Retrieve the most expensive book in the store.
 SELECT * FROM books ORDER BY price Desc LIMIT 1;
@@ -86,7 +89,7 @@ UPDATE books
 SET price = price + (price * 0.1)
 WHERE published_year < 2000;
 
-select * from books;
+select * from books ORDER BY id ASC;
 
 -- Delete customers who haven't placed any orders.
 -- SELECT customer_id FROM orders GROUP BY customer_id;
