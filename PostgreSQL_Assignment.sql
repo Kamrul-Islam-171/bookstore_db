@@ -53,3 +53,48 @@ INSERT INTO orders (customer_id, book_id, quantity, order_date) VALUES
 
 
 SELECT * FROM orders;
+
+--  Find books that are out of stock.
+SELECT * FROM books WHERE stock = 0;
+
+-- Retrieve the most expensive book in the store.
+SELECT * FROM books ORDER BY price Desc LIMIT 1;
+
+-- Find the total number of orders placed by each customer.
+
+SELECT customers."name", COUNT(*) as total_orders FROM orders 
+JOIN customers ON orders.customer_id = customers.id
+GROUP BY customers."name";
+
+
+-- Calculate the total revenue generated from book sales.
+select sum(books.price * orders.quantity) as total_revenue
+from books
+join orders on books.id = orders.book_id;
+
+-- List all customers who have placed more than one order.
+select customers."name", COUNT(*) as orders_count
+from orders
+join customers on orders.customer_id = customers.id
+GROUP BY customers."name" HAVING COUNT(*) > 1;
+
+-- Find the average price of books in the store.
+select round(avg(price),2) as avg_book_price from books;
+
+-- Increase the price of all books published before 2000 by 10%.
+UPDATE books
+SET price = price + (price * 0.1)
+WHERE published_year < 2000;
+
+select * from books;
+
+-- Delete customers who haven't placed any orders.
+-- SELECT customer_id FROM orders GROUP BY customer_id;
+-- SELECT * FROM customers 
+-- WHERE id NOT IN (SELECT customer_id FROM orders GROUP BY customer_id);
+
+DELETE FROM customers 
+WHERE id NOT IN 
+(SELECT customer_id FROM orders GROUP BY customer_id);
+
+SELECT * FROM customers;
